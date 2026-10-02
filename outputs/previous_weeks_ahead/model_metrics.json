@@ -1,0 +1,539 @@
+{
+  "label": "ArrDel15 (arrived 15+ minutes late), completed flights only",
+  "split": "time-based: history / fit / validation / test months",
+  "history_features": "previous calendar month for every row (fixed-length window); rates as lift",
+  "history_only_months": [
+    1
+  ],
+  "stage1_fit_months": [
+    2
+  ],
+  "validation_month": 3,
+  "train_months": [
+    2,
+    3
+  ],
+  "test_month": 4,
+  "stage1_fit_size": 515269,
+  "validation_size": 585413,
+  "train_size": 1100682,
+  "test_size": 576915,
+  "validation_delay_rate": 0.2085,
+  "train_delay_rate": 0.1854,
+  "test_delay_rate": 0.1906,
+  "operating_point": "each model flags the riskiest 20% of the scored month's flights (ranking of scheduled flights only, no labels)",
+  "flag_share": 0.2,
+  "class_weighted": false,
+  "relative_rates": true,
+  "probabilities": "unweighted log-loss models, not recalibrated: a calibrator learned on the validation month from the stage-1 model encodes that month's base-rate jump (see validation_calibration and rejected_alternatives_test)",
+  "features": [
+    "dep_hour",
+    "arr_hour",
+    "dep_minute_of_day",
+    "day_of_week",
+    "crs_elapsed_minutes",
+    "distance_miles",
+    "origin_sched_deps_in_hour",
+    "dest_sched_arrs_in_hour",
+    "origin_sched_deps_in_day",
+    "hist_median_leg_of_day",
+    "hist_median_turnaround",
+    "hist_rate_carrier",
+    "hist_rate_origin",
+    "hist_rate_dest",
+    "hist_rate_route",
+    "hist_rate_carrier_route",
+    "hist_rate_origin_hour",
+    "hist_rate_carrier_hour",
+    "carrier_code"
+  ],
+  "excluded_after_leakage_investigation": [
+    "aircraft_leg_of_day",
+    "aircraft_legs_scheduled_today",
+    "sched_turnaround_minutes"
+  ],
+  "validation_models": {
+    "Historical rate rule (carrier+route)": {
+      "auc_roc": 0.6088,
+      "auc_pr": 0.2949,
+      "precision": 0.31,
+      "recall": 0.2974,
+      "f1_score": 0.3035,
+      "accuracy": 0.7155,
+      "predicted_positive_rate": 0.2,
+      "confusion_matrix": [
+        [
+          382588,
+          80793
+        ],
+        [
+          85742,
+          36290
+        ]
+      ],
+      "mean_score": 1.0001
+    },
+    "Logistic regression": {
+      "auc_roc": 0.6614,
+      "auc_pr": 0.3394,
+      "precision": 0.365,
+      "recall": 0.3502,
+      "f1_score": 0.3575,
+      "accuracy": 0.7376,
+      "predicted_positive_rate": 0.2,
+      "confusion_matrix": [
+        [
+          389039,
+          74342
+        ],
+        [
+          79291,
+          42741
+        ]
+      ],
+      "mean_score": 0.1724
+    },
+    "LightGBM": {
+      "auc_roc": 0.66,
+      "auc_pr": 0.3352,
+      "precision": 0.3638,
+      "recall": 0.3491,
+      "f1_score": 0.3563,
+      "accuracy": 0.7371,
+      "predicted_positive_rate": 0.2,
+      "confusion_matrix": [
+        [
+          388895,
+          74486
+        ],
+        [
+          79435,
+          42597
+        ]
+      ],
+      "mean_score": 0.1552
+    }
+  },
+  "validation_calibration": {
+    "Logistic regression": {
+      "actual_rate": 0.2085,
+      "mean_score": 0.1724,
+      "platt_slope": 0.81,
+      "platt_intercept": -0.028,
+      "deciles": [
+        {
+          "decile": 1,
+          "flights": 58542,
+          "mean_predicted": 0.0536,
+          "actual_rate": 0.0896
+        },
+        {
+          "decile": 2,
+          "flights": 58541,
+          "mean_predicted": 0.0742,
+          "actual_rate": 0.113
+        },
+        {
+          "decile": 3,
+          "flights": 58541,
+          "mean_predicted": 0.0925,
+          "actual_rate": 0.1319
+        },
+        {
+          "decile": 4,
+          "flights": 58541,
+          "mean_predicted": 0.1125,
+          "actual_rate": 0.1524
+        },
+        {
+          "decile": 5,
+          "flights": 58542,
+          "mean_predicted": 0.1344,
+          "actual_rate": 0.1778
+        },
+        {
+          "decile": 6,
+          "flights": 58541,
+          "mean_predicted": 0.1597,
+          "actual_rate": 0.1982
+        },
+        {
+          "decile": 7,
+          "flights": 58541,
+          "mean_predicted": 0.1896,
+          "actual_rate": 0.2261
+        },
+        {
+          "decile": 8,
+          "flights": 58541,
+          "mean_predicted": 0.228,
+          "actual_rate": 0.2655
+        },
+        {
+          "decile": 9,
+          "flights": 58541,
+          "mean_predicted": 0.2802,
+          "actual_rate": 0.3168
+        },
+        {
+          "decile": 10,
+          "flights": 58542,
+          "mean_predicted": 0.3995,
+          "actual_rate": 0.4133
+        }
+      ]
+    },
+    "LightGBM": {
+      "actual_rate": 0.2085,
+      "mean_score": 0.1552,
+      "platt_slope": 0.757,
+      "platt_intercept": 0.001,
+      "deciles": [
+        {
+          "decile": 1,
+          "flights": 58542,
+          "mean_predicted": 0.0376,
+          "actual_rate": 0.0875
+        },
+        {
+          "decile": 2,
+          "flights": 58541,
+          "mean_predicted": 0.0613,
+          "actual_rate": 0.1197
+        },
+        {
+          "decile": 3,
+          "flights": 58541,
+          "mean_predicted": 0.0809,
+          "actual_rate": 0.136
+        },
+        {
+          "decile": 4,
+          "flights": 58541,
+          "mean_predicted": 0.1002,
+          "actual_rate": 0.1513
+        },
+        {
+          "decile": 5,
+          "flights": 58542,
+          "mean_predicted": 0.1207,
+          "actual_rate": 0.1685
+        },
+        {
+          "decile": 6,
+          "flights": 58541,
+          "mean_predicted": 0.1438,
+          "actual_rate": 0.1966
+        },
+        {
+          "decile": 7,
+          "flights": 58541,
+          "mean_predicted": 0.1717,
+          "actual_rate": 0.2285
+        },
+        {
+          "decile": 8,
+          "flights": 58541,
+          "mean_predicted": 0.2073,
+          "actual_rate": 0.2689
+        },
+        {
+          "decile": 9,
+          "flights": 58541,
+          "mean_predicted": 0.2574,
+          "actual_rate": 0.324
+        },
+        {
+          "decile": 10,
+          "flights": 58542,
+          "mean_predicted": 0.3713,
+          "actual_rate": 0.4036
+        }
+      ]
+    }
+  },
+  "models": {
+    "Historical rate rule (carrier+route)": {
+      "auc_roc": 0.5937,
+      "auc_pr": 0.2578,
+      "precision": 0.2688,
+      "recall": 0.2821,
+      "f1_score": 0.2753,
+      "accuracy": 0.7169,
+      "predicted_positive_rate": 0.2,
+      "confusion_matrix": [
+        [
+          382599,
+          84368
+        ],
+        [
+          78933,
+          31015
+        ]
+      ]
+    },
+    "Logistic regression": {
+      "auc_roc": 0.6538,
+      "auc_pr": 0.2969,
+      "precision": 0.3197,
+      "recall": 0.3355,
+      "f1_score": 0.3274,
+      "accuracy": 0.7373,
+      "predicted_positive_rate": 0.2,
+      "confusion_matrix": [
+        [
+          388469,
+          78498
+        ],
+        [
+          73063,
+          36885
+        ]
+      ]
+    },
+    "LightGBM": {
+      "auc_roc": 0.6492,
+      "auc_pr": 0.2929,
+      "precision": 0.3205,
+      "recall": 0.3363,
+      "f1_score": 0.3282,
+      "accuracy": 0.7376,
+      "predicted_positive_rate": 0.2,
+      "confusion_matrix": [
+        [
+          388559,
+          78408
+        ],
+        [
+          72973,
+          36975
+        ]
+      ]
+    }
+  },
+  "calibration_check_test": {
+    "Logistic regression": {
+      "actual_rate": 0.1906,
+      "mean_predicted_probability": 0.1873,
+      "brier": 0.1478,
+      "brier_constant_train_rate": 0.15429,
+      "deciles": [
+        {
+          "decile": 1,
+          "flights": 57692,
+          "mean_predicted": 0.0638,
+          "actual_rate": 0.0718
+        },
+        {
+          "decile": 2,
+          "flights": 57691,
+          "mean_predicted": 0.0885,
+          "actual_rate": 0.1014
+        },
+        {
+          "decile": 3,
+          "flights": 57692,
+          "mean_predicted": 0.1083,
+          "actual_rate": 0.125
+        },
+        {
+          "decile": 4,
+          "flights": 57691,
+          "mean_predicted": 0.128,
+          "actual_rate": 0.1459
+        },
+        {
+          "decile": 5,
+          "flights": 57692,
+          "mean_predicted": 0.1491,
+          "actual_rate": 0.1654
+        },
+        {
+          "decile": 6,
+          "flights": 57691,
+          "mean_predicted": 0.1736,
+          "actual_rate": 0.1882
+        },
+        {
+          "decile": 7,
+          "flights": 57691,
+          "mean_predicted": 0.2039,
+          "actual_rate": 0.2178
+        },
+        {
+          "decile": 8,
+          "flights": 57692,
+          "mean_predicted": 0.244,
+          "actual_rate": 0.2509
+        },
+        {
+          "decile": 9,
+          "flights": 57691,
+          "mean_predicted": 0.3014,
+          "actual_rate": 0.2881
+        },
+        {
+          "decile": 10,
+          "flights": 57692,
+          "mean_predicted": 0.4126,
+          "actual_rate": 0.3512
+        }
+      ]
+    },
+    "LightGBM": {
+      "actual_rate": 0.1906,
+      "mean_predicted_probability": 0.1887,
+      "brier": 0.14938,
+      "brier_constant_train_rate": 0.15429,
+      "deciles": [
+        {
+          "decile": 1,
+          "flights": 57692,
+          "mean_predicted": 0.0523,
+          "actual_rate": 0.0712
+        },
+        {
+          "decile": 2,
+          "flights": 57691,
+          "mean_predicted": 0.081,
+          "actual_rate": 0.1084
+        },
+        {
+          "decile": 3,
+          "flights": 57692,
+          "mean_predicted": 0.1015,
+          "actual_rate": 0.1323
+        },
+        {
+          "decile": 4,
+          "flights": 57691,
+          "mean_predicted": 0.1204,
+          "actual_rate": 0.1482
+        },
+        {
+          "decile": 5,
+          "flights": 57692,
+          "mean_predicted": 0.1411,
+          "actual_rate": 0.1657
+        },
+        {
+          "decile": 6,
+          "flights": 57691,
+          "mean_predicted": 0.1666,
+          "actual_rate": 0.1883
+        },
+        {
+          "decile": 7,
+          "flights": 57691,
+          "mean_predicted": 0.201,
+          "actual_rate": 0.2089
+        },
+        {
+          "decile": 8,
+          "flights": 57692,
+          "mean_predicted": 0.2489,
+          "actual_rate": 0.2417
+        },
+        {
+          "decile": 9,
+          "flights": 57691,
+          "mean_predicted": 0.3176,
+          "actual_rate": 0.2889
+        },
+        {
+          "decile": 10,
+          "flights": 57692,
+          "mean_predicted": 0.4571,
+          "actual_rate": 0.352
+        }
+      ]
+    }
+  },
+  "rejected_alternatives_test": {
+    "Historical rate rule (carrier+route)": {
+      "validation_threshold_flagged_share": 0.2023
+    },
+    "Logistic regression": {
+      "validation_threshold_flagged_share": 0.234,
+      "isotonic_mean_probability": 0.2231,
+      "isotonic_brier": 0.1485
+    },
+    "LightGBM": {
+      "validation_threshold_flagged_share": 0.2859,
+      "isotonic_mean_probability": 0.2391,
+      "isotonic_brier": 0.15085
+    }
+  },
+  "lightgbm_minus_logreg_day_bootstrap": {
+    "reps": 200,
+    "auc_roc": {
+      "difference": -0.0046,
+      "ci95": [
+        -0.0109,
+        0.0014
+      ]
+    },
+    "auc_pr": {
+      "difference": -0.004,
+      "ci95": [
+        -0.011,
+        0.0047
+      ]
+    }
+  },
+  "main_model": "LightGBM",
+  "main_model_note": "LightGBM and logistic regression perform about the same; LightGBM is used for the per-flight outputs because TreeSHAP gives exact per-flight reasons",
+  "top_features": [
+    {
+      "feature": "hist_rate_carrier_hour",
+      "readable_name": "carrier+hour delay-rate lift (prev. month)",
+      "mean_abs_shap": 0.2408
+    },
+    {
+      "feature": "day_of_week",
+      "readable_name": "day of week",
+      "mean_abs_shap": 0.1484
+    },
+    {
+      "feature": "hist_rate_carrier_route",
+      "readable_name": "carrier+route delay-rate lift (prev. month)",
+      "mean_abs_shap": 0.12011
+    },
+    {
+      "feature": "carrier_code",
+      "readable_name": "carrier",
+      "mean_abs_shap": 0.11029
+    },
+    {
+      "feature": "distance_miles",
+      "readable_name": "distance",
+      "mean_abs_shap": 0.10987
+    },
+    {
+      "feature": "hist_rate_origin_hour",
+      "readable_name": "origin+hour delay-rate lift (prev. month)",
+      "mean_abs_shap": 0.09343
+    },
+    {
+      "feature": "crs_elapsed_minutes",
+      "readable_name": "scheduled block time",
+      "mean_abs_shap": 0.09075
+    },
+    {
+      "feature": "dep_minute_of_day",
+      "readable_name": "scheduled departure time",
+      "mean_abs_shap": 0.08542
+    },
+    {
+      "feature": "origin_sched_deps_in_day",
+      "readable_name": "origin departures scheduled that day",
+      "mean_abs_shap": 0.07612
+    },
+    {
+      "feature": "arr_hour",
+      "readable_name": "scheduled arrival hour",
+      "mean_abs_shap": 0.06874
+    }
+  ],
+  "flagged_rows_written": 115383
+}

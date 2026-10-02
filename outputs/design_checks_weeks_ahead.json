@@ -1,0 +1,135 @@
+{
+  "fit_months": [
+    2
+  ],
+  "validation_month": 3,
+  "test_month_used": false,
+  "results": [
+    {
+      "variant": "previous calendar month, rates as lift, unweighted (FINAL CHOICE)",
+      "Logistic regression": {
+        "auc_roc": 0.6614,
+        "auc_pr": 0.3394,
+        "mean_score": 0.1724
+      },
+      "LightGBM": {
+        "auc_roc": 0.66,
+        "auc_pr": 0.3352,
+        "mean_score": 0.1552
+      },
+      "validation_delay_rate": 0.2085
+    },
+    {
+      "variant": "previous calendar month, absolute rates, unweighted",
+      "Logistic regression": {
+        "auc_roc": 0.6589,
+        "auc_pr": 0.3362,
+        "mean_score": 0.1104
+      },
+      "LightGBM": {
+        "auc_roc": 0.6376,
+        "auc_pr": 0.3148,
+        "mean_score": 0.078
+      },
+      "validation_delay_rate": 0.2085
+    },
+    {
+      "variant": "previous calendar month, rates as lift, class-weighted",
+      "Logistic regression": {
+        "auc_roc": 0.6605,
+        "auc_pr": 0.3374,
+        "mean_score": 0.4829
+      },
+      "LightGBM": {
+        "auc_roc": 0.6587,
+        "auc_pr": 0.3362,
+        "mean_score": 0.4235
+      },
+      "validation_delay_rate": 0.2085
+    },
+    {
+      "variant": "previous calendar month, absolute rates, class-weighted",
+      "Logistic regression": {
+        "auc_roc": 0.6576,
+        "auc_pr": 0.3337,
+        "mean_score": 0.3683
+      },
+      "LightGBM": {
+        "auc_roc": 0.6389,
+        "auc_pr": 0.3123,
+        "mean_score": 0.2588
+      },
+      "validation_delay_rate": 0.2085
+    },
+    {
+      "variant": "expanding window (Feb<-Jan, Mar<-Jan+Feb), absolute rates (old scheme)",
+      "Logistic regression": {
+        "auc_roc": 0.6676,
+        "auc_pr": 0.3425,
+        "mean_score": 0.1344
+      },
+      "LightGBM": {
+        "auc_roc": 0.6484,
+        "auc_pr": 0.3239,
+        "mean_score": 0.1236
+      },
+      "validation_delay_rate": 0.2085
+    },
+    {
+      "variant": "expanding window, rates as lift",
+      "Logistic regression": {
+        "auc_roc": 0.6687,
+        "auc_pr": 0.3436,
+        "mean_score": 0.1659
+      },
+      "LightGBM": {
+        "auc_roc": 0.6678,
+        "auc_pr": 0.3427,
+        "mean_score": 0.1556
+      },
+      "validation_delay_rate": 0.2085
+    },
+    {
+      "variant": "out-of-fold encoding inside the fit month, absolute rates",
+      "Logistic regression": {
+        "auc_roc": 0.6701,
+        "auc_pr": 0.3492,
+        "mean_score": 0.1614
+      },
+      "LightGBM": {
+        "auc_roc": 0.6678,
+        "auc_pr": 0.3499,
+        "mean_score": 0.1582
+      },
+      "validation_delay_rate": 0.2085
+    },
+    {
+      "variant": "out-of-fold encoding inside the fit month, rates as lift",
+      "Logistic regression": {
+        "auc_roc": 0.6702,
+        "auc_pr": 0.3493,
+        "mean_score": 0.1614
+      },
+      "LightGBM": {
+        "auc_roc": 0.6675,
+        "auc_pr": 0.3492,
+        "mean_score": 0.1584
+      },
+      "validation_delay_rate": 0.2085
+    },
+    {
+      "variant": "previous month, lift + same-day tail features (LEAKY, reference only)",
+      "Logistic regression": {
+        "auc_roc": 0.6639,
+        "auc_pr": 0.3392,
+        "mean_score": 0.1698
+      },
+      "LightGBM": {
+        "auc_roc": 0.6907,
+        "auc_pr": 0.4118,
+        "mean_score": 0.1563
+      },
+      "validation_delay_rate": 0.2085
+    }
+  ]
+}

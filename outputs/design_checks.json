@@ -1,0 +1,447 @@
+{
+  "fit_months": [
+    "Feb 2024"
+  ],
+  "validation_month": "Mar 2024",
+  "test_month_used": false,
+  "results": [
+    {
+      "variant": "weeks-ahead features only (schedule + previous-month history)",
+      "n_features": 19,
+      "Logistic regression": {
+        "auc_roc": 0.6615,
+        "auc_pr": 0.3398,
+        "precision_20": 0.3655,
+        "recall_20": 0.3507,
+        "precision_10": 0.415,
+        "recall_10": 0.1991,
+        "mean_score": 0.1736
+      },
+      "LightGBM": {
+        "auc_roc": 0.66,
+        "auc_pr": 0.3352,
+        "precision_20": 0.3638,
+        "recall_20": 0.3491,
+        "precision_10": 0.4036,
+        "recall_10": 0.1936,
+        "mean_score": 0.1552
+      }
+    },
+    {
+      "variant": "+ inbound aircraft",
+      "n_features": 31,
+      "Logistic regression": {
+        "auc_roc": 0.7472,
+        "auc_pr": 0.5095,
+        "precision_20": 0.5015,
+        "recall_20": 0.4811,
+        "precision_10": 0.6641,
+        "recall_10": 0.3186,
+        "mean_score": 0.185
+      },
+      "LightGBM": {
+        "auc_roc": 0.7806,
+        "auc_pr": 0.6169,
+        "precision_20": 0.5569,
+        "recall_20": 0.5343,
+        "precision_10": 0.772,
+        "recall_10": 0.3703,
+        "mean_score": 0.1796
+      }
+    },
+    {
+      "variant": "+ inbound + congestion",
+      "n_features": 40,
+      "Logistic regression": {
+        "auc_roc": 0.7586,
+        "auc_pr": 0.5268,
+        "precision_20": 0.5171,
+        "recall_20": 0.4961,
+        "precision_10": 0.6733,
+        "recall_10": 0.323,
+        "mean_score": 0.2038
+      },
+      "LightGBM": {
+        "auc_roc": 0.8052,
+        "auc_pr": 0.6446,
+        "precision_20": 0.5833,
+        "recall_20": 0.5597,
+        "precision_10": 0.797,
+        "recall_10": 0.3823,
+        "mean_score": 0.205
+      }
+    },
+    {
+      "variant": "+ inbound + congestion + origin weather",
+      "n_features": 47,
+      "Logistic regression": {
+        "auc_roc": 0.7637,
+        "auc_pr": 0.5302,
+        "precision_20": 0.5207,
+        "recall_20": 0.4996,
+        "precision_10": 0.6765,
+        "recall_10": 0.3245,
+        "mean_score": 0.2062
+      },
+      "LightGBM": {
+        "auc_roc": 0.8129,
+        "auc_pr": 0.6518,
+        "precision_20": 0.5901,
+        "recall_20": 0.5662,
+        "precision_10": 0.7987,
+        "recall_10": 0.3832,
+        "mean_score": 0.2072
+      }
+    },
+    {
+      "variant": "+ inbound + congestion + origin weather + destination weather (forecast stand-in) = ALL",
+      "n_features": 53,
+      "Logistic regression": {
+        "auc_roc": 0.7695,
+        "auc_pr": 0.5345,
+        "precision_20": 0.5254,
+        "recall_20": 0.5041,
+        "precision_10": 0.6777,
+        "recall_10": 0.3251,
+        "mean_score": 0.2096
+      },
+      "LightGBM": {
+        "auc_roc": 0.8185,
+        "auc_pr": 0.657,
+        "precision_20": 0.5938,
+        "recall_20": 0.5697,
+        "precision_10": 0.801,
+        "recall_10": 0.3842,
+        "mean_score": 0.2075
+      }
+    },
+    {
+      "variant": "weeks-ahead + congestion + weather, NO inbound aircraft",
+      "n_features": 41,
+      "Logistic regression": {
+        "auc_roc": 0.705,
+        "auc_pr": 0.4146,
+        "precision_20": 0.4204,
+        "recall_20": 0.4033,
+        "precision_10": 0.5075,
+        "recall_10": 0.2435,
+        "mean_score": 0.208
+      },
+      "LightGBM": {
+        "auc_roc": 0.7335,
+        "auc_pr": 0.4557,
+        "precision_20": 0.4518,
+        "recall_20": 0.4335,
+        "precision_10": 0.5532,
+        "recall_10": 0.2654,
+        "mean_score": 0.1957
+      }
+    }
+  ],
+  "inbound_rule": {
+    "chosen_threshold_min": 5,
+    "criterion": "best F1 on validation",
+    "score_auc": {
+      "auc_roc": 0.6563,
+      "auc_pr": 0.3416
+    },
+    "sweep": [
+      {
+        "threshold_min": 0,
+        "precision": 0.3325,
+        "recall": 0.528,
+        "f1_score": 0.408,
+        "accuracy": 0.6807,
+        "predicted_positive_rate": 0.331
+      },
+      {
+        "threshold_min": 5,
+        "precision": 0.3681,
+        "recall": 0.478,
+        "f1_score": 0.4159,
+        "accuracy": 0.7201,
+        "predicted_positive_rate": 0.2707
+      },
+      {
+        "threshold_min": 10,
+        "precision": 0.4051,
+        "recall": 0.4234,
+        "f1_score": 0.4141,
+        "accuracy": 0.7502,
+        "predicted_positive_rate": 0.2179
+      },
+      {
+        "threshold_min": 15,
+        "precision": 0.4354,
+        "recall": 0.3754,
+        "f1_score": 0.4032,
+        "accuracy": 0.7683,
+        "predicted_positive_rate": 0.1797
+      },
+      {
+        "threshold_min": 20,
+        "precision": 0.4611,
+        "recall": 0.3342,
+        "f1_score": 0.3875,
+        "accuracy": 0.7798,
+        "predicted_positive_rate": 0.1511
+      },
+      {
+        "threshold_min": 25,
+        "precision": 0.4816,
+        "recall": 0.2989,
+        "f1_score": 0.3689,
+        "accuracy": 0.7868,
+        "predicted_positive_rate": 0.1294
+      },
+      {
+        "threshold_min": 30,
+        "precision": 0.4969,
+        "recall": 0.2678,
+        "f1_score": 0.348,
+        "accuracy": 0.7908,
+        "predicted_positive_rate": 0.1123
+      },
+      {
+        "threshold_min": 35,
+        "precision": 0.5072,
+        "recall": 0.2392,
+        "f1_score": 0.3251,
+        "accuracy": 0.793,
+        "predicted_positive_rate": 0.0983
+      },
+      {
+        "threshold_min": 40,
+        "precision": 0.5132,
+        "recall": 0.2127,
+        "f1_score": 0.3008,
+        "accuracy": 0.7938,
+        "predicted_positive_rate": 0.0864
+      },
+      {
+        "threshold_min": 45,
+        "precision": 0.5147,
+        "recall": 0.1893,
+        "f1_score": 0.2768,
+        "accuracy": 0.7938,
+        "predicted_positive_rate": 0.0767
+      },
+      {
+        "threshold_min": 50,
+        "precision": 0.5136,
+        "recall": 0.1682,
+        "f1_score": 0.2534,
+        "accuracy": 0.7934,
+        "predicted_positive_rate": 0.0683
+      },
+      {
+        "threshold_min": 55,
+        "precision": 0.5114,
+        "recall": 0.1498,
+        "f1_score": 0.2318,
+        "accuracy": 0.7929,
+        "predicted_positive_rate": 0.0611
+      },
+      {
+        "threshold_min": 60,
+        "precision": 0.5076,
+        "recall": 0.1337,
+        "f1_score": 0.2116,
+        "accuracy": 0.7924,
+        "predicted_positive_rate": 0.0549
+      },
+      {
+        "threshold_min": 65,
+        "precision": 0.4998,
+        "recall": 0.1186,
+        "f1_score": 0.1917,
+        "accuracy": 0.7915,
+        "predicted_positive_rate": 0.0495
+      },
+      {
+        "threshold_min": 70,
+        "precision": 0.4928,
+        "recall": 0.1061,
+        "f1_score": 0.1746,
+        "accuracy": 0.7909,
+        "predicted_positive_rate": 0.0449
+      },
+      {
+        "threshold_min": 75,
+        "precision": 0.487,
+        "recall": 0.0952,
+        "f1_score": 0.1592,
+        "accuracy": 0.7905,
+        "predicted_positive_rate": 0.0407
+      },
+      {
+        "threshold_min": 80,
+        "precision": 0.4784,
+        "recall": 0.0853,
+        "f1_score": 0.1447,
+        "accuracy": 0.7899,
+        "predicted_positive_rate": 0.0371
+      },
+      {
+        "threshold_min": 85,
+        "precision": 0.4693,
+        "recall": 0.0764,
+        "f1_score": 0.1314,
+        "accuracy": 0.7895,
+        "predicted_positive_rate": 0.0339
+      },
+      {
+        "threshold_min": 90,
+        "precision": 0.4623,
+        "recall": 0.0689,
+        "f1_score": 0.1199,
+        "accuracy": 0.7892,
+        "predicted_positive_rate": 0.0311
+      },
+      {
+        "threshold_min": 95,
+        "precision": 0.4535,
+        "recall": 0.0616,
+        "f1_score": 0.1085,
+        "accuracy": 0.7889,
+        "predicted_positive_rate": 0.0283
+      },
+      {
+        "threshold_min": 100,
+        "precision": 0.4431,
+        "recall": 0.0553,
+        "f1_score": 0.0983,
+        "accuracy": 0.7886,
+        "predicted_positive_rate": 0.026
+      },
+      {
+        "threshold_min": 105,
+        "precision": 0.4342,
+        "recall": 0.0496,
+        "f1_score": 0.0891,
+        "accuracy": 0.7884,
+        "predicted_positive_rate": 0.0238
+      },
+      {
+        "threshold_min": 110,
+        "precision": 0.4278,
+        "recall": 0.0452,
+        "f1_score": 0.0818,
+        "accuracy": 0.7884,
+        "predicted_positive_rate": 0.022
+      },
+      {
+        "threshold_min": 115,
+        "precision": 0.4205,
+        "recall": 0.0413,
+        "f1_score": 0.0751,
+        "accuracy": 0.7883,
+        "predicted_positive_rate": 0.0205
+      },
+      {
+        "threshold_min": 120,
+        "precision": 0.4122,
+        "recall": 0.0375,
+        "f1_score": 0.0688,
+        "accuracy": 0.7882,
+        "predicted_positive_rate": 0.019
+      },
+      {
+        "threshold_min": 125,
+        "precision": 0.4034,
+        "recall": 0.034,
+        "f1_score": 0.0628,
+        "accuracy": 0.7881,
+        "predicted_positive_rate": 0.0176
+      },
+      {
+        "threshold_min": 130,
+        "precision": 0.3997,
+        "recall": 0.0314,
+        "f1_score": 0.0583,
+        "accuracy": 0.7883,
+        "predicted_positive_rate": 0.0164
+      },
+      {
+        "threshold_min": 135,
+        "precision": 0.3925,
+        "recall": 0.029,
+        "f1_score": 0.0539,
+        "accuracy": 0.7882,
+        "predicted_positive_rate": 0.0154
+      },
+      {
+        "threshold_min": 140,
+        "precision": 0.3888,
+        "recall": 0.027,
+        "f1_score": 0.0504,
+        "accuracy": 0.7883,
+        "predicted_positive_rate": 0.0145
+      },
+      {
+        "threshold_min": 145,
+        "precision": 0.3866,
+        "recall": 0.0253,
+        "f1_score": 0.0475,
+        "accuracy": 0.7885,
+        "predicted_positive_rate": 0.0136
+      },
+      {
+        "threshold_min": 150,
+        "precision": 0.3816,
+        "recall": 0.0235,
+        "f1_score": 0.0443,
+        "accuracy": 0.7885,
+        "predicted_positive_rate": 0.0129
+      },
+      {
+        "threshold_min": 155,
+        "precision": 0.377,
+        "recall": 0.0219,
+        "f1_score": 0.0415,
+        "accuracy": 0.7886,
+        "predicted_positive_rate": 0.0121
+      },
+      {
+        "threshold_min": 160,
+        "precision": 0.3749,
+        "recall": 0.0207,
+        "f1_score": 0.0392,
+        "accuracy": 0.7887,
+        "predicted_positive_rate": 0.0115
+      },
+      {
+        "threshold_min": 165,
+        "precision": 0.374,
+        "recall": 0.0196,
+        "f1_score": 0.0372,
+        "accuracy": 0.7888,
+        "predicted_positive_rate": 0.0109
+      },
+      {
+        "threshold_min": 170,
+        "precision": 0.3732,
+        "recall": 0.0186,
+        "f1_score": 0.0354,
+        "accuracy": 0.7889,
+        "predicted_positive_rate": 0.0104
+      },
+      {
+        "threshold_min": 175,
+        "precision": 0.3732,
+        "recall": 0.0177,
+        "f1_score": 0.0338,
+        "accuracy": 0.789,
+        "predicted_positive_rate": 0.0099
+      },
+      {
+        "threshold_min": 180,
+        "precision": 0.3747,
+        "recall": 0.017,
+        "f1_score": 0.0325,
+        "accuracy": 0.7892,
+        "predicted_positive_rate": 0.0094
+      }
+    ]
+  }
+}

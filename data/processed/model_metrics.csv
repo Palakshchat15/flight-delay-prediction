@@ -1,0 +1,5 @@
+model,auc_pr,auc_roc,precision,recall,f1_score,accuracy,predicted_positive_rate,precision_at_10pct,recall_at_10pct,test_month
+Historical rate rule (carrier+route),0.2578,0.5937,0.2688,0.2821,0.2753,0.7169,0.2,0.2992,0.157,Apr 2024
+Inbound-delay rule,0.3149,0.6477,0.3769,0.3955,0.386,0.7602,0.2,0.4735,0.2485,Apr 2024
+Logistic regression,0.5104,0.7642,0.4839,0.5078,0.4956,0.803,0.2,0.6474,0.3397,Apr 2024
+LightGBM,0.633,0.8088,0.5489,0.576,0.5621,0.829,0.2,0.7647,0.4013,Apr 2024

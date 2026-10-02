@@ -1,0 +1,2 @@
+total_flights,on_time,avg_delay,cancel_rate,worst_carrier,auc_pr,precision,recall
+2.24M,80.0%,5.7 min,1.45%,Frontier,0.633,54.89%,57.60%

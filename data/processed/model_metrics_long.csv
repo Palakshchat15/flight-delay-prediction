@@ -1,0 +1,21 @@
+model,metric,value
+Historical rate rule (carrier+route),AUC-PR,0.2578
+Inbound-delay rule,AUC-PR,0.3149
+Logistic regression,AUC-PR,0.5104
+LightGBM,AUC-PR,0.633
+Historical rate rule (carrier+route),AUC-ROC,0.5937
+Inbound-delay rule,AUC-ROC,0.6477
+Logistic regression,AUC-ROC,0.7642
+LightGBM,AUC-ROC,0.8088
+Historical rate rule (carrier+route),Precision,0.2688
+Inbound-delay rule,Precision,0.3769
+Logistic regression,Precision,0.4839
+LightGBM,Precision,0.5489
+Historical rate rule (carrier+route),Recall,0.2821
+Inbound-delay rule,Recall,0.3955
+Logistic regression,Recall,0.5078
+LightGBM,Recall,0.576
+Historical rate rule (carrier+route),F1,0.2753
+Inbound-delay rule,F1,0.386
+Logistic regression,F1,0.4956
+LightGBM,F1,0.5621

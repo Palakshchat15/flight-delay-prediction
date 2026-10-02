@@ -1,0 +1,16 @@
+carrier_name,test_flights,actual_delay_rate_pct,mean_predicted_probability_pct,flagged_pct
+Frontier Airlines,16778,29.7,29.4,32.9
+American Airlines,80212,24.2,25.7,28.6
+JetBlue Airways,19762,22.3,25.3,27.3
+PSA Airlines,18427,21.8,18.3,17.8
+Alaska Airlines,19287,20.7,19.7,18.9
+Southwest Airlines,119903,19.7,21.7,24.2
+Envoy Air,22752,19.2,19.5,19.8
+United Airlines,60539,19.2,19.3,19.2
+Spirit Airlines,21723,17.6,22.2,22.8
+SkyWest Airlines,59093,16.3,15.7,14.6
+Delta Air Lines,82569,15.6,15.9,13.2
+Hawaiian Airlines,6285,14.7,13.3,9.2
+Allegiant Air,9215,13.7,18.0,14.1
+Endeavor Air,16778,12.6,11.8,9.3
+Republic Airways,23592,12.1,9.3,6.5

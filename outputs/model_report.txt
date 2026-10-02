@@ -1,0 +1,67 @@
+Flight Arrival Delay (15+ min) Model Report - predicted 2 hours before scheduled departure
+========================================================================================
+
+History-only month: Jan 2024 (previous-calendar-month rate features)
+Stage 1: fit on ['Feb 2024'] (515,269 flights), validation Mar 2024 (585,413 flights, 20.85% delayed)
+Final:   refit on ['Feb 2024', 'Mar 2024'] (1,100,682 flights, 18.54% delayed), test Apr 2024 (576,915 flights, 19.06% delayed), scored once
+
+VALIDATION month (stage-1 models)
+Model                                                 AUC-ROC   AUC-PR   P@20%   R@20%  F1@20%    P@10%   R@10%
+Historical rate rule (carrier+route)                   0.6088   0.2949  0.3100  0.2974  0.3035   0.3465  0.1662
+Inbound-delay rule                                     0.6563   0.3416  0.4162  0.3993  0.4076   0.5058  0.2426
+Logistic regression                                    0.7695   0.5345  0.5254  0.5041  0.5145   0.6777  0.3251
+LightGBM                                               0.8190   0.6575  0.5944  0.5703  0.5821   0.8009  0.3842
+
+TEST month (refit models)
+Model                                                 AUC-ROC   AUC-PR   P@20%   R@20%  F1@20%    P@10%   R@10%
+Historical rate rule (carrier+route)                   0.5937   0.2578  0.2688  0.2821  0.2753   0.2992  0.1570
+Inbound-delay rule                                     0.6477   0.3149  0.3769  0.3955  0.3860   0.4735  0.2485
+Logistic regression                                    0.7642   0.5104  0.4839  0.5078  0.4956   0.6474  0.3397
+LightGBM                                               0.8088   0.6330  0.5489  0.5760  0.5621   0.7647  0.4013
+LightGBM, weeks-ahead features only (reference)        0.6492   0.2929  0.3205  0.3363  0.3282   0.3520  0.1847
+
+Inbound-delay rule as a yes/no rule: flag if inbound known delay >= 5 min (best F1 on validation). Test: {'precision': 0.3397, 'recall': 0.452, 'f1_score': 0.3879, 'accuracy': 0.7281, 'predicted_positive_rate': 0.2536, 'confusion_matrix': [[370373, 96594], [60248, 49700]]}
+AUC-PR of a random classifier = test delay rate = 0.1906
+LightGBM minus logistic regression (paired day-block bootstrap, 200 reps): AUC-ROC +0.0446 (95% CI [0.0422, 0.0468]), AUC-PR +0.1226 (95% CI [0.1138, 0.1332])
+
+Robustness: {'definition': 'test flights excluding those whose scheduled turn after the inbound leg is < 20 min or negative (the signature of a same-day aircraft swap, which BTS tail numbers record after the fact)', 'excluded_flights': 10368, 'excluded_delay_rate': 0.8087, 'kept_flights': 566547, 'kept_delay_rate': 0.1793, 'models': {'Historical rate rule (carrier+route)': {'auc_roc': 0.5919, 'auc_pr': 0.2434}, 'Inbound-delay rule': {'auc_roc': 0.6585, 'auc_pr': 0.3143}, 'Logistic regression': {'auc_roc': 0.7621, 'auc_pr': 0.4975}, 'LightGBM': {'auc_roc': 0.7957, 'auc_pr': 0.594}}}
+
+Calibration, test month (probabilities as published):
+  Logistic regression: actual 0.1906 | mean predicted 0.2008 | Brier 0.12383 (constant train rate 0.15429)
+  LightGBM: actual 0.1906 | mean predicted 0.1972 | Brier 0.10770 (constant train rate 0.15429)
+
+LightGBM confusion matrix at 20% [rows=actual 0/1, cols=predicted 0/1]:
+[[414914  52053]
+ [ 46618  63330]]
+
+SHAP share by feature group: {'congestion': 0.1821, 'inbound': 0.2838, 'schedule_history': 0.343, 'weather_dest_forecast_standin': 0.0952, 'weather_origin': 0.0959}
+
+Top features by mean |SHAP|:
+                     feature                                          readable_name  mean_abs_shap                         group
+     inb_projected_slack_min                             projected turn slack (min)        0.35180                       inbound
+          inb_prev_dep_delay    inbound leg departure delay (if departed by cutoff)        0.17470                       inbound
+   dest_recent_arr_delay_avg       destination avg arrival delay, 2 h before cutoff        0.14029                    congestion
+     hist_rate_carrier_route            carrier+route delay-rate lift (prev. month)        0.13840              schedule_history
+          inb_sched_turn_min                 scheduled turn after inbound leg (min)        0.10370                       inbound
+     dest_sched_arrs_in_hour               destination arrivals scheduled that hour        0.10319              schedule_history
+              distance_miles                                               distance        0.10261              schedule_history
+         ac_latest_dep_delay                aircraft's latest known departure delay        0.09999                       inbound
+                   wx_o_temp                       origin temperature at cutoff (C)        0.09849                weather_origin
+                 wx_d_precip     destination precipitation at sched. arrival (mm/h)        0.09722 weather_dest_forecast_standin
+                carrier_code                                                carrier        0.09716              schedule_history
+        origin_pending_share                        share of origin flights overdue        0.08451                    congestion
+   origin_sched_deps_in_hour                  origin departures scheduled that hour        0.08063              schedule_history
+carrier_recent_dep_delay_avg carrier network avg departure delay, 2 h before cutoff        0.07804                    congestion
+              wx_d_cloud_low            destination low cloud at sched. arrival (%)        0.07307 weather_dest_forecast_standin
+
+Example predictions (p = predicted probability; reasons = SHAP, log-odds):
+  2024-04-11 AS FLL-SAN dep hour 17: p=0.999, actual=delayed
+    projected turn slack (min)=-49 (+3.62); aircraft's latest known departure delay=118 (+0.81); inbound leg departure delay (if departed by cutoff)=118 (+0.69)
+  2024-04-26 WN DAL-LAS dep hour 20: p=0.999, actual=delayed
+    projected turn slack (min)=-65 (+3.36); aircraft's latest known departure delay=100 (+0.88); inbound leg departure delay (if departed by cutoff)=100 (+0.81)
+  2024-04-11 UA FLL-SFO dep hour 18: p=0.999, actual=delayed
+    projected turn slack (min)=-81 (+3.46); aircraft's latest known departure delay=143 (+0.79); inbound leg departure delay (if departed by cutoff)=143 (+0.62)
+  2024-04-07 YX LGA-RIC dep hour 10: p=0.012, actual=on time
+    carrier=YX (-0.25); projected turn slack (min)=53 (-0.24); carrier network avg departure delay, 2 h before cutoff=-6.0 (-0.23)
+  2024-04-03 WN LAS-SJC dep hour 5: p=0.012, actual=on time
+    origin+hour delay-rate lift (prev. month)=0.330 (-0.33); carrier+hour delay-rate lift (prev. month)=0.251 (-0.28); projected turn slack (min)=470 (-0.21)

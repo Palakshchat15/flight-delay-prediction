@@ -1,0 +1,12 @@
+flight_dbt:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      host: "{{ env_var('POSTGRES_HOST', 'localhost') }}"
+      port: "{{ env_var('POSTGRES_PORT', '5436') | as_number }}"
+      user: "{{ env_var('POSTGRES_USER', 'flight_user') }}"
+      pass: "{{ env_var('POSTGRES_PASSWORD', 'flight_pass') }}"
+      dbname: "{{ env_var('POSTGRES_DB', 'flight_delay') }}"
+      schema: staging
+      threads: 4

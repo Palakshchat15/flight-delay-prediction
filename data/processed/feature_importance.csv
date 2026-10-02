@@ -1,0 +1,54 @@
+feature,mean_abs_shap
+projected turn slack (min),0.3518
+inbound leg departure delay (if departed by cutoff),0.1747
+"destination avg arrival delay, 2 h before cutoff",0.14029
+carrier+route delay-rate lift (prev. month),0.1384
+scheduled turn after inbound leg (min),0.1037
+destination arrivals scheduled that hour,0.10319
+distance,0.10261
+aircraft's latest known departure delay,0.09999
+origin temperature at cutoff (C),0.09849
+destination precipitation at sched. arrival (mm/h),0.09722
+carrier,0.09716
+share of origin flights overdue,0.08451
+origin departures scheduled that hour,0.08063
+"carrier network avg departure delay, 2 h before cutoff",0.07804
+destination low cloud at sched. arrival (%),0.07307
+"origin avg departure delay, 2 h before cutoff",0.07164
+"origin precipitation, 3 h to cutoff (mm)",0.06619
+origin+hour delay-rate lift (prev. month),0.06219
+"origin flights overdue, not yet departed",0.05998
+destination temperature at sched. arrival (C),0.05985
+"inbound leg overdue, not yet departed (min)",0.05849
+scheduled block time,0.05807
+scheduled departure time,0.05444
+carrier+hour delay-rate lift (prev. month),0.05421
+day of week,0.05384
+origin low cloud at cutoff (%),0.05117
+"destination avg departure delay, 2 h before cutoff",0.04183
+destination gusts at sched. arrival (km/h),0.03958
+route's delay-rate lift (prev. month),0.03919
+origin's delay-rate lift (prev. month),0.0389
+destination's delay-rate lift (prev. month),0.03541
+scheduled arrival hour,0.03388
+"US network avg departure delay, 2 h before cutoff",0.03376
+origin departures scheduled that day,0.03112
+"origin avg arrival delay, 2 h before cutoff",0.02671
+inbound aircraft known delay at cutoff (min),0.02516
+aircraft's latest known arrival delay,0.02511
+origin precipitation at cutoff (mm/h),0.02253
+origin wind at cutoff (km/h),0.02053
+origin gusts at cutoff (km/h),0.01947
+destination wind at sched. arrival (km/h),0.01834
+origin departures in 2 h before cutoff,0.01703
+carrier's delay-rate lift (prev. month),0.01681
+scheduled departure hour,0.01637
+flight's typical aircraft leg of day (prev. month),0.01538
+origin snowfall at cutoff (cm/h),0.0132
+inbound leg arrival delay (if arrived by cutoff),0.01297
+"flight's typical scheduled turnaround (prev. month, min)",0.01164
+inbound leg departed by cutoff,0.00467
+inbound leg scheduled to have left by cutoff,0.00352
+inbound leg arrived by cutoff,0.00314
+destination snowfall at sched. arrival (cm/h),0.00154
+aircraft has an earlier leg today,2e-05

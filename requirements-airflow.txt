@@ -1,0 +1,28 @@
+# Pinned defensively based on lessons learned from prior portfolio builds.
+# apache-airflow 2.9.3 and dbt-postgres 1.7.13 both require SQLAlchemy<2.0.
+sqlalchemy>=1.4.36,<2.0
+
+# dbt
+dbt-core==1.7.13
+dbt-postgres==1.7.13
+
+# Great Expectations
+great_expectations==0.18.19
+
+# Postgres driver
+psycopg2-binary==2.9.9
+
+# Data / ML stack - pinned defensively against numpy/pandas ABI conflicts
+numpy==1.26.4
+pandas==2.1.4
+scipy==1.11.4
+scikit-learn==1.4.2
+lightgbm==4.3.0
+shap==0.45.0
+
+# Plotting (SHAP summary / feature importance PNGs)
+matplotlib==3.8.4
+
+# Dashboards: Excel workbook + Tableau .twbx (.hyper extracts; Tableau Public only opens extract-based workbooks)
+openpyxl==3.1.2
+tableauhyperapi==0.0.26700

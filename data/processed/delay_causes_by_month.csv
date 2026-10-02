@@ -1,0 +1,21 @@
+flight_month,month_name,cause,delay_minutes,share_of_month_pct
+1,Jan,Carrier,3111412,32.6
+1,Jan,Late Aircraft,3715582,39.0
+1,Jan,National Air System,1709694,17.9
+1,Jan,Security,22616,0.2
+1,Jan,Weather,979360,10.3
+2,Feb,Carrier,1885576,35.9
+2,Feb,Late Aircraft,1938910,36.9
+2,Feb,National Air System,1138361,21.7
+2,Feb,Security,14103,0.3
+2,Feb,Weather,280346,5.3
+3,Mar,Carrier,2735376,32.1
+3,Mar,Late Aircraft,3583293,42.1
+3,Mar,National Air System,1823287,21.4
+3,Mar,Security,17710,0.2
+3,Mar,Weather,357961,4.2
+4,Apr,Carrier,2537517,33.6
+4,Apr,Late Aircraft,3102075,41.0
+4,Apr,National Air System,1515097,20.0
+4,Apr,Security,15524,0.2
+4,Apr,Weather,388236,5.1

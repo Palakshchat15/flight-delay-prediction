@@ -1,0 +1,54 @@
+feature,readable_name,mean_abs_shap,group
+inb_projected_slack_min,projected turn slack (min),0.3518,inbound
+inb_prev_dep_delay,inbound leg departure delay (if departed by cutoff),0.1747,inbound
+dest_recent_arr_delay_avg,"destination avg arrival delay, 2 h before cutoff",0.14029,congestion
+hist_rate_carrier_route,carrier+route delay-rate lift (prev. month),0.1384,schedule_history
+inb_sched_turn_min,scheduled turn after inbound leg (min),0.1037,inbound
+dest_sched_arrs_in_hour,destination arrivals scheduled that hour,0.10319,schedule_history
+distance_miles,distance,0.10261,schedule_history
+ac_latest_dep_delay,aircraft's latest known departure delay,0.09999,inbound
+wx_o_temp,origin temperature at cutoff (C),0.09849,weather_origin
+wx_d_precip,destination precipitation at sched. arrival (mm/h),0.09722,weather_dest_forecast_standin
+carrier_code,carrier,0.09716,schedule_history
+origin_pending_share,share of origin flights overdue,0.08451,congestion
+origin_sched_deps_in_hour,origin departures scheduled that hour,0.08063,schedule_history
+carrier_recent_dep_delay_avg,"carrier network avg departure delay, 2 h before cutoff",0.07804,congestion
+wx_d_cloud_low,destination low cloud at sched. arrival (%),0.07307,weather_dest_forecast_standin
+origin_recent_dep_delay_avg,"origin avg departure delay, 2 h before cutoff",0.07164,congestion
+wx_o_precip_3h,"origin precipitation, 3 h to cutoff (mm)",0.06619,weather_origin
+hist_rate_origin_hour,origin+hour delay-rate lift (prev. month),0.06219,schedule_history
+origin_pending_count,"origin flights overdue, not yet departed",0.05998,congestion
+wx_d_temp,destination temperature at sched. arrival (C),0.05985,weather_dest_forecast_standin
+inb_prev_overdue_min,"inbound leg overdue, not yet departed (min)",0.05849,inbound
+crs_elapsed_minutes,scheduled block time,0.05807,schedule_history
+dep_minute_of_day,scheduled departure time,0.05444,schedule_history
+hist_rate_carrier_hour,carrier+hour delay-rate lift (prev. month),0.05421,schedule_history
+day_of_week,day of week,0.05384,schedule_history
+wx_o_cloud_low,origin low cloud at cutoff (%),0.05117,weather_origin
+dest_recent_dep_delay_avg,"destination avg departure delay, 2 h before cutoff",0.04183,congestion
+wx_d_gust,destination gusts at sched. arrival (km/h),0.03958,weather_dest_forecast_standin
+hist_rate_route,route's delay-rate lift (prev. month),0.03919,schedule_history
+hist_rate_origin,origin's delay-rate lift (prev. month),0.0389,schedule_history
+hist_rate_dest,destination's delay-rate lift (prev. month),0.03541,schedule_history
+arr_hour,scheduled arrival hour,0.03388,schedule_history
+nat_recent_dep_delay_avg,"US network avg departure delay, 2 h before cutoff",0.03376,congestion
+origin_sched_deps_in_day,origin departures scheduled that day,0.03112,schedule_history
+origin_recent_arr_delay_avg,"origin avg arrival delay, 2 h before cutoff",0.02671,congestion
+inb_known_delay_min,inbound aircraft known delay at cutoff (min),0.02516,inbound
+ac_latest_arr_delay,aircraft's latest known arrival delay,0.02511,inbound
+wx_o_precip,origin precipitation at cutoff (mm/h),0.02253,weather_origin
+wx_o_wind,origin wind at cutoff (km/h),0.02053,weather_origin
+wx_o_gust,origin gusts at cutoff (km/h),0.01947,weather_origin
+wx_d_wind,destination wind at sched. arrival (km/h),0.01834,weather_dest_forecast_standin
+origin_recent_dep_count,origin departures in 2 h before cutoff,0.01703,congestion
+hist_rate_carrier,carrier's delay-rate lift (prev. month),0.01681,schedule_history
+dep_hour,scheduled departure hour,0.01637,schedule_history
+hist_median_leg_of_day,flight's typical aircraft leg of day (prev. month),0.01538,schedule_history
+wx_o_snow,origin snowfall at cutoff (cm/h),0.0132,weather_origin
+inb_prev_arr_delay,inbound leg arrival delay (if arrived by cutoff),0.01297,inbound
+hist_median_turnaround,"flight's typical scheduled turnaround (prev. month, min)",0.01164,schedule_history
+inb_prev_departed,inbound leg departed by cutoff,0.00467,inbound
+inb_prev_sched_dep_before_cutoff,inbound leg scheduled to have left by cutoff,0.00352,inbound
+inb_prev_arrived,inbound leg arrived by cutoff,0.00314,inbound
+wx_d_snow,destination snowfall at sched. arrival (cm/h),0.00154,weather_dest_forecast_standin
+inb_has_prev,aircraft has an earlier leg today,2e-05,inbound

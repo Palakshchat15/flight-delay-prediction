@@ -1,0 +1,16 @@
+carrier_name,carrier,actual_rate,predicted_rate
+Frontier Airlines,Frontier,0.297,0.294
+American Airlines,American,0.242,0.257
+JetBlue Airways,JetBlue,0.223,0.253
+PSA Airlines,PSA,0.218,0.183
+Alaska Airlines,Alaska,0.207,0.197
+Southwest Airlines,Southwest,0.197,0.217
+Envoy Air,Envoy,0.192,0.195
+United Airlines,United,0.192,0.193
+Spirit Airlines,Spirit,0.176,0.222
+SkyWest Airlines,SkyWest,0.163,0.157
+Delta Air Lines,Delta,0.156,0.159
+Hawaiian Airlines,Hawaiian,0.147,0.133
+Allegiant Air,Allegiant,0.137,0.18
+Endeavor Air,Endeavor,0.126,0.118
+Republic Airways,Republic,0.121,0.093

@@ -1,0 +1,50 @@
+version: 2
+
+sources:
+  - name: raw
+    schema: raw
+    tables:
+      - name: flights
+        description: "BTS Reporting Carrier On-Time Performance, one row per scheduled flight, chunk-loaded from the monthly zips."
+        columns:
+          - name: flight_date
+            tests: [not_null]
+          - name: reporting_airline
+            tests: [not_null]
+          - name: origin
+            tests: [not_null]
+          - name: dest
+            tests: [not_null]
+      - name: airports
+        description: "OurAirports reference data (airports with an IATA code)."
+        columns:
+          - name: iata_code
+            tests: [not_null]
+      - name: airport_timezones
+        description: "IANA time zone per airport (Open-Meteo timezone=auto lookup on OurAirports coordinates)."
+        columns:
+          - name: airport_code
+            tests: [unique, not_null]
+          - name: timezone
+            tests: [not_null]
+      - name: weather_hourly
+        description: "Open-Meteo historical hourly weather per airport, UTC hours (observed/reanalysis)."
+        columns:
+          - name: airport_code
+            tests: [not_null]
+          - name: ts_utc
+            tests: [not_null]
+  - name: features
+    schema: warehouse
+    tables:
+      - name: flight_cutoff_features
+        description: >
+          Features known 2 hours before scheduled departure (inbound aircraft, airport and
+          carrier congestion, weather), built by src/ml_pipeline/cutoff_features.py after dbt run.
+          Every *_ts column is the time of the latest event used and must be before cutoff_utc
+          (singular tests in tests/ and src/ml_pipeline/leakage_check.py).
+        columns:
+          - name: flight_key
+            tests: [unique, not_null]
+          - name: cutoff_utc
+            tests: [not_null]

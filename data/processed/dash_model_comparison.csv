@@ -1,0 +1,16 @@
+model,metric,value
+Random,AUC-PR,0.1906
+Random,Precision,0.1906
+Random,Recall,0.2
+Route rule,AUC-PR,0.2578
+Route rule,Precision,0.2688
+Route rule,Recall,0.2821
+Inbound rule,AUC-PR,0.3149
+Inbound rule,Precision,0.3769
+Inbound rule,Recall,0.3955
+LogReg,AUC-PR,0.5104
+LogReg,Precision,0.4839
+LogReg,Recall,0.5078
+LightGBM,AUC-PR,0.633
+LightGBM,Precision,0.5489
+LightGBM,Recall,0.576

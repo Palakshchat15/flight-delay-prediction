@@ -1,0 +1,117 @@
+x-airflow-common: &airflow-common
+  build:
+    context: .
+    dockerfile: airflow/Dockerfile
+  environment: &airflow-common-env
+    AIRFLOW__CORE__EXECUTOR: LocalExecutor
+    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/airflow
+    AIRFLOW__CORE__FERNET_KEY: ""
+    AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: "false"
+    AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+    AIRFLOW__API__AUTH_BACKENDS: "airflow.api.auth.backend.basic_auth"
+    AIRFLOW__SCHEDULER__ENABLE_HEALTH_CHECK: "true"
+    # Memory, so the stack runs in a ~4 GB Docker VM (8 GB laptop). The DAG runs at most two
+    # tasks at once (the two dashboard builders), so 2 executor slots change nothing but stop
+    # LocalExecutor pre-forking 32 worker processes; 2 web workers are plenty for one user.
+    AIRFLOW__CORE__PARALLELISM: 2
+    AIRFLOW__WEBSERVER__WORKERS: 2
+    # glibc: allocations >= 128 KB (numpy arrays) always get their own mapping and go back to the
+    # OS when freed, instead of piling up in the heap after pandas/numpy temporaries.
+    MALLOC_MMAP_THRESHOLD_: 131072
+    # Python objects from glibc malloc instead of pymalloc: pymalloc frees memory only in whole
+    # 1 MB arenas, so millions of short-lived row objects (psycopg2 fetches) left ~0.5 GB of
+    # empty-but-pinned arenas per load; glibc's free pages are returned (malloc_trim).
+    PYTHONMALLOC: malloc
+    POSTGRES_USER: ${POSTGRES_USER}
+    POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    POSTGRES_DB: ${POSTGRES_DB}
+    POSTGRES_HOST: postgres
+    POSTGRES_PORT: 5432
+    BTS_YEAR: ${BTS_YEAR}
+    BTS_MONTHS: ${BTS_MONTHS}
+    # Host path of data/processed, recorded in the Tableau workbook as the source for "Refresh Extract"
+    TABLEAU_DATA_DIR: ${HOST_PROJECT_DIR}/data/processed
+  volumes:
+    - ./airflow/dags:/opt/airflow/dags
+    - ./airflow/logs:/opt/airflow/logs
+    - ./airflow/plugins:/opt/airflow/plugins
+    - ./data:/opt/airflow/data
+    - ./dbt:/opt/airflow/dbt
+    - ./src:/opt/airflow/src
+    - ./outputs:/opt/airflow/outputs
+    - ./tableau:/opt/airflow/tableau
+    - ./great_expectations:/opt/airflow/great_expectations
+  user: "0:0"
+  depends_on:
+    postgres:
+      condition: service_healthy
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: flight_postgres
+    # Docker's default 64MB /dev/shm is too small for parallel hash joins over ~2.2M flights.
+    shm_size: 1gb
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "5436:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+      - ./postgres_init:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    command: >
+      postgres -c max_connections=200 -c shared_buffers=256MB -c work_mem=64MB -c maintenance_work_mem=256MB
+
+  postgres-init-airflow-db:
+    image: postgres:15
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      PGPASSWORD: ${POSTGRES_PASSWORD}
+    entrypoint: >
+      bash -c "psql -h postgres -U ${POSTGRES_USER} -d ${POSTGRES_DB} -tc \"SELECT 1 FROM pg_database WHERE datname = 'airflow'\" | grep -q 1 ||
+      psql -h postgres -U ${POSTGRES_USER} -d ${POSTGRES_DB} -c \"CREATE DATABASE airflow\""
+
+  airflow-init:
+    <<: *airflow-common
+    depends_on:
+      postgres-init-airflow-db:
+        condition: service_completed_successfully
+    entrypoint: /bin/bash
+    command:
+      - -c
+      - |
+        airflow db migrate
+        airflow users create --username admin --password admin --firstname Admin --lastname User --role Admin --email admin@example.com || true
+
+  airflow-webserver:
+    <<: *airflow-common
+    command: webserver
+    ports:
+      - "8085:8080"
+    depends_on:
+      airflow-init:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://localhost:8080/health || exit 1"]
+      interval: 15s
+      timeout: 10s
+      retries: 10
+
+  airflow-scheduler:
+    <<: *airflow-common
+    command: scheduler
+    depends_on:
+      airflow-init:
+        condition: service_completed_successfully
+
+volumes:
+  pg_data:

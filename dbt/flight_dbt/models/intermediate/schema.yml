@@ -1,0 +1,27 @@
+version: 2
+
+models:
+  - name: int_flights_enriched
+    description: "Flights with status and schedule-derived (pre-departure) context features."
+    columns:
+      - name: flight_key
+        tests: [unique, not_null]
+      - name: flight_status
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['On time', 'Delayed 15+ min', 'Cancelled', 'Diverted']
+      - name: origin_sched_deps_in_hour
+        tests: [not_null]
+      - name: sched_arr_date
+        description: "Scheduled arrival date (departure date, +1 for flights scheduled to land after local midnight)."
+        tests: [not_null]
+      - name: sched_dep_utc
+        description: "Scheduled departure in UTC (origin time zone applied)."
+        tests: [not_null]
+      - name: sched_arr_utc
+        description: "Scheduled arrival in UTC (destination time zone applied)."
+        tests: [not_null]
+      - name: cutoff_utc
+        description: "Prediction moment: 2 hours before scheduled departure (UTC)."
+        tests: [not_null]

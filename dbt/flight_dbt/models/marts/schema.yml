@@ -1,0 +1,92 @@
+version: 2
+
+models:
+  - name: dim_carrier
+    description: "Reporting carriers (names from the carriers seed)."
+    columns:
+      - name: carrier_code
+        tests: [unique, not_null]
+      - name: carrier_name
+        tests: [not_null]
+  - name: dim_airport
+    description: "Airports seen as origin or destination, with OurAirports coordinates."
+    columns:
+      - name: airport_code
+        tests: [unique, not_null]
+      - name: latitude
+        tests:
+          - not_null:
+              config:
+                severity: warn
+  - name: fact_flights
+    description: "One row per scheduled flight, including cancelled and diverted flights."
+    columns:
+      - name: flight_key
+        tests: [unique, not_null]
+      - name: carrier_code
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_carrier')
+              field: carrier_code
+      - name: origin_airport_code
+        tests:
+          - relationships:
+              to: ref('dim_airport')
+              field: airport_code
+      - name: dest_airport_code
+        tests:
+          - relationships:
+              to: ref('dim_airport')
+              field: airport_code
+      - name: flight_status
+        tests:
+          - accepted_values:
+              values: ['On time', 'Delayed 15+ min', 'Cancelled', 'Diverted']
+  - name: mart_flight_features
+    description: "ML-ready, pre-departure features for completed flights. Label: is_delayed_15."
+    columns:
+      - name: flight_key
+        tests: [unique, not_null]
+      - name: is_delayed_15
+        tests:
+          - not_null
+          - accepted_values:
+              values: [0, 1]
+              quote: false
+      - name: dep_hour
+        tests: [not_null]
+      - name: distance_miles
+        tests: [not_null]
+  - name: mart_ontime_by_carrier
+    columns:
+      - name: carrier_code
+        tests: [unique, not_null]
+      - name: on_time_pct
+        tests: [not_null]
+  - name: mart_ontime_by_origin
+    columns:
+      - name: airport_code
+        tests: [unique, not_null]
+  - name: mart_ontime_by_hour
+    columns:
+      - name: dep_hour
+        tests: [unique, not_null]
+  - name: mart_ontime_by_dow_month
+    columns:
+      - name: day_of_week
+        tests: [not_null]
+  - name: mart_ontime_daily
+    columns:
+      - name: flight_date
+        tests: [unique, not_null]
+  - name: mart_top_delayed_routes
+    columns:
+      - name: route
+        tests: [unique, not_null]
+  - name: mart_delay_causes_by_month
+    columns:
+      - name: cause
+        tests:
+          - accepted_values:
+              values: ['Carrier', 'Weather', 'National Air System', 'Security', 'Late Aircraft']

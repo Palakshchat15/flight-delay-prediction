@@ -1,0 +1,16 @@
+carrier_name,carrier_code,scheduled_flights,cancelled_flights,diverted_flights,completed_flights,delayed_flights,on_time_pct,delay_rate_pct,cancellation_rate_pct,avg_arr_delay_minutes
+Republic Airways,YX,92727,1645,158,90924,10351,88.6,11.4,1.77,-5.76
+Endeavor Air,9E,66654,1111,126,65417,9534,85.4,14.6,1.67,-0.47
+Delta Air Lines,DL,311082,803,541,309738,48356,84.4,15.6,0.26,1.25
+Hawaiian Airlines,HA,25473,282,25,25166,4591,81.8,18.2,1.11,6.19
+SkyWest Airlines,OO,226049,4264,816,220969,40616,81.6,18.4,1.89,6.62
+United Airlines,UA,241662,5727,551,235384,44419,81.1,18.9,2.37,3.97
+PSA Airlines,OH,68156,1170,138,66848,12914,80.7,19.3,1.72,6.39
+Allegiant Air,G4,37384,319,83,36982,7199,80.5,19.5,0.85,6.83
+Envoy Air,MQ,86740,1615,202,84923,16688,80.4,19.7,1.86,5.3
+Southwest Airlines,WN,466447,5684,739,460024,95164,79.3,20.7,1.22,4.77
+Alaska Airlines,AS,73707,3507,304,69896,15110,78.4,21.6,4.76,4.01
+Spirit Airlines,NK,85227,1074,125,84028,19884,76.3,23.7,1.26,7.39
+American Airlines,AA,315691,3052,786,311853,77614,75.1,24.9,0.97,13.41
+JetBlue Airways,B6,80504,1198,259,79047,21050,73.4,26.6,1.49,11.59
+Frontier Airlines,F9,62941,1095,78,61768,16936,72.6,27.4,1.74,15.17

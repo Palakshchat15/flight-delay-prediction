@@ -1,0 +1,41 @@
+{
+  "timestamp_rule": {
+    "rows": 2202967.0,
+    "ts_at_or_after_cutoff": 0.0,
+    "origin_weather_after_cutoff": 0.0,
+    "value_ts_null_mismatch": 0.0,
+    "rows_with_prev_dep_known": 1911666.0,
+    "rows_with_prev_arr_known": 607417.0,
+    "max_prev_dep_minus_cutoff_min": -1.0,
+    "max_window_event_minus_cutoff_min": -1.0,
+    "dest_weather_after_cutoff_forecast_standin": 2202967.0
+  },
+  "key_cross_check": {
+    "prev_dep_known_mismatch": 0,
+    "prev_dep_value_mismatch": 0,
+    "prev_arr_known_mismatch": 0,
+    "prev_arr_value_mismatch": 0,
+    "prev_not_earlier": 0,
+    "latest_dep_not_before_cutoff": 0,
+    "latest_arr_not_before_cutoff": 0,
+    "own_flight_used": 0,
+    "prev_other_tail": 0
+  },
+  "timezone_sanity": {
+    "flights": 2240443,
+    "share_utc_block_time_within_5min": 0.99985
+  },
+  "feature_name_rule": {
+    "n_features": 53,
+    "forbidden_used": []
+  },
+  "independent_recompute": {
+    "sample_flights": 400,
+    "features_compared": 21,
+    "values_compared": 8400,
+    "mismatches": 0,
+    "examples": []
+  },
+  "passed": true,
+  "failures": []
+}

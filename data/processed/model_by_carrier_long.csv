@@ -1,0 +1,31 @@
+carrier_name,series,rate_pct
+Frontier Airlines,Actual delay rate,29.7
+American Airlines,Actual delay rate,24.2
+JetBlue Airways,Actual delay rate,22.3
+PSA Airlines,Actual delay rate,21.8
+Alaska Airlines,Actual delay rate,20.7
+Southwest Airlines,Actual delay rate,19.7
+Envoy Air,Actual delay rate,19.2
+United Airlines,Actual delay rate,19.2
+Spirit Airlines,Actual delay rate,17.6
+SkyWest Airlines,Actual delay rate,16.3
+Delta Air Lines,Actual delay rate,15.6
+Hawaiian Airlines,Actual delay rate,14.7
+Allegiant Air,Actual delay rate,13.7
+Endeavor Air,Actual delay rate,12.6
+Republic Airways,Actual delay rate,12.1
+Frontier Airlines,Mean predicted probability,29.4
+American Airlines,Mean predicted probability,25.7
+JetBlue Airways,Mean predicted probability,25.3
+PSA Airlines,Mean predicted probability,18.3
+Alaska Airlines,Mean predicted probability,19.7
+Southwest Airlines,Mean predicted probability,21.7
+Envoy Air,Mean predicted probability,19.5
+United Airlines,Mean predicted probability,19.3
+Spirit Airlines,Mean predicted probability,22.2
+SkyWest Airlines,Mean predicted probability,15.7
+Delta Air Lines,Mean predicted probability,15.9
+Hawaiian Airlines,Mean predicted probability,13.3
+Allegiant Air,Mean predicted probability,18.0
+Endeavor Air,Mean predicted probability,11.8
+Republic Airways,Mean predicted probability,9.3

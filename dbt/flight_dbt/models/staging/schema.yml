@@ -1,0 +1,27 @@
+version: 2
+
+models:
+  - name: stg_flights
+    description: "Typed, deduplicated flights. Cancelled and diverted flights are kept (they are business events)."
+    columns:
+      - name: flight_key
+        tests: [unique, not_null]
+      - name: carrier_code
+        tests: [not_null]
+      - name: dep_hour
+        tests:
+          - not_null
+          - accepted_values:
+              values: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]
+              quote: false
+      - name: day_of_week
+        tests:
+          - accepted_values:
+              values: [1,2,3,4,5,6,7]
+              quote: false
+      - name: is_cancelled
+        tests: [not_null]
+  - name: stg_airports
+    columns:
+      - name: iata_code
+        tests: [unique, not_null]

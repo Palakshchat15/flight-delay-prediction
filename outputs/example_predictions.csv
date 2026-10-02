@@ -1,0 +1,6 @@
+flight_key,flight_date,carrier_code,origin,dest,route,dep_hour,actual_delayed,delay_probability,predicted_delayed,top_reasons
+f6ef3d774464bf4dc2a4d737fd3caadc,2024-04-11,AS,FLL,SAN,FLL-SAN,17,1,0.99888,1,projected turn slack (min)=-49 (+3.62); aircraft's latest known departure delay=118 (+0.81); inbound leg departure delay (if departed by cutoff)=118 (+0.69)
+26a4c24d0af3c033c30ee90eb9075d17,2024-04-26,WN,DAL,LAS,DAL-LAS,20,1,0.99883,1,projected turn slack (min)=-65 (+3.36); aircraft's latest known departure delay=100 (+0.88); inbound leg departure delay (if departed by cutoff)=100 (+0.81)
+8f085df8709fa7947d99fc48d3e2d653,2024-04-11,UA,FLL,SFO,FLL-SFO,18,1,0.99871,1,projected turn slack (min)=-81 (+3.46); aircraft's latest known departure delay=143 (+0.79); inbound leg departure delay (if departed by cutoff)=143 (+0.62)
+27745d8a141c6da08daf36e6890107b5,2024-04-07,YX,LGA,RIC,LGA-RIC,10,0,0.01151,0,"carrier=YX (-0.25); projected turn slack (min)=53 (-0.24); carrier network avg departure delay, 2 h before cutoff=-6.0 (-0.23)"
+d82d8a8efa7a34616f686fb37f192a68,2024-04-03,WN,LAS,SJC,LAS-SJC,5,0,0.01168,0,origin+hour delay-rate lift (prev. month)=0.330 (-0.33); carrier+hour delay-rate lift (prev. month)=0.251 (-0.28); projected turn slack (min)=470 (-0.21)
